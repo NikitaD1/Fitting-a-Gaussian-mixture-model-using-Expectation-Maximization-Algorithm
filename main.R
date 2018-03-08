@@ -1,4 +1,4 @@
-for (i in 1:3) {
+for (i in 1:50) {
   
   iris.kmeans = kmeans(iris[1:4],3)
   cluster = iris.kmeans$cluster
@@ -14,18 +14,18 @@ for (i in 1:3) {
     m.step <- mstep(iris[,1:4], e.step[["posterior"]])
     cur.loglik <- e.step[["loglikelihood"]]
     
-  } else {
+  } 
+  
+  else {
     # Repeat E and M steps till convergence
-    e.step <- estep(iris[,1:4], m.step[["mean"]], sqrt(m.step[["cov"]]), 
-                    m.step[["clusterweights"]])
+    e.step <- estep(iris[,1:4], m.step[["mean"]], m.step[["cov"]], m.step[["clusterweigths"]])
     m.step <- mstep(iris[,1:4], e.step[["posterior"]])
     
     loglik.diff <- abs((cur.loglik - e.step[["loglikelihood"]]))
     
-    if(loglik.diff < 1e-6) {
+    if(loglik.diff < 1e-6) 
       break
-    } else {
-      cur.loglik <- e.step[["loglikelihood"]]
+    cur.loglik <- e.step[["loglikelihood"]]
     }
   }
-}
+
